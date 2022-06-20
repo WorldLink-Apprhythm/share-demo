@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4DLink埋め込みデモ</title>
+</head>
+<body>
+    <h1 style="text-align: center;">4DLink埋め込みデモ</h1>
+    <div style="height: 500px; width: 800px; margin: 0 auto">
+        <iframe id='embeded-tag' src='' height='100%' width='100%' style='border: none;'></iframe>
+    </div>
+   <script>
+        const iframeTag = document.getElementById('embeded-tag')
+        window.onload = () => {
+            const url = new URL(location.href)
+            const params = new URLSearchParams(url.search);
+            const shareCode1 = params.get('shareCode1');
+            const shareCode2 = params.get('shareCode2');
+            iframeTag.src = `https://app.4dlink.com/auth/share/${shareCode1}/${shareCode2}`
+        }
+   </script>
+</body>
+</html>
