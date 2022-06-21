@@ -8,18 +8,44 @@
 </head>
 <body>
     <h1 style="text-align: center;">4DLink埋め込みデモ</h1>
-    <div style="height: 500px; width: 800px; margin: 0 auto">
-        <iframe id='embeded-tag' src='' height='100%' width='100%' style='border: none;'></iframe>
-    </div>
-   <script>
-        const iframeTag = document.getElementById('embeded-tag')
+    <div id='layout-box' style="display: flex;">
+        <div style="height: 500px; width: 800px; margin: 0 auto">
+            <iframe id='embeded-tag' src='' height='100%' width='100%' style='border: none;'></iframe>
+        </div>
+        <div id='embeded-mergin' style="display: none;"></div>
+        <div id='embeded-frame' style="display: none;">
+            <iframe id='embeded-tag2' src='' height='100%' width='100%' style='border: none;'></iframe>
+        </div>
+        </div>
+    <script>
+
         window.onload = () => {
+            const layoutBox = document.getElementById('layout-box')
+            const iframeTag = document.getElementById('embeded-tag')
+            const iframeTag2 = document.getElementById('embeded-tag2')
+            const iframeArea = document.getElementById('embeded-frame')
+            const iframeMergin = document.getElementById('embeded-mergin')
             const url = new URL(location.href)
             const params = new URLSearchParams(url.search);
             const shareCode1 = params.get('shareCode1');
             const shareCode2 = params.get('shareCode2');
-            iframeTag.src = `https://app.4dlink.com/auth/share/${shareCode1}/${shareCode2}`
+            const shareCode21 = params.get('shareCode21');
+            const shareCode22 = params.get('shareCode22');
+            const layout = params.get('layout') === 'vertical' ;
+
+            iframeTag.src = `https://app.4dlink.com/auth/share/${shareCode1}/${shareCode2}`;
+
+            if (shareCode21 && shareCode22) {
+                iframeTag2.src = `https://app.4dlink.com/auth/share/${shareCode21}/${shareCode22}`;
+                iframeArea.style = "display: block; height: 500px; width: 800px; margin: 0 auto";
+                iframeMergin.style = "display: block; height: 20px; width: 20px;"
+            }
+
+            if (layout) {
+                layoutBox.style = "display: flex; flex-direction: column;";
+            }
         }
-   </script>
+
+    </script>
 </body>
 </html>
